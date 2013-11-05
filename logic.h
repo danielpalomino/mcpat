@@ -66,7 +66,7 @@ public:
 	enum Core_type core_ty;
 
 	void selection_power();
-	void leakage_feedback(double temperature); // TODO	
+	void leakage_feedback(double temperature); // TODO
 };
 
 class dep_resource_conflict_check : public Component{
@@ -204,7 +204,8 @@ public:
 	powerDef       power_t;
 
 	FunctionalUnit(ParseXML *XML_interface, int ithCore_, InputParameter* interface_ip_,const CoreDynParam & dyn_p_, enum FU_type fu_type);
-    void computeEnergy(bool is_tdp=true);
+//    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp = true);
 	void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     void leakage_feedback(double temperature);
 

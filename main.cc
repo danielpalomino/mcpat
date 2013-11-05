@@ -30,6 +30,7 @@
  ***************************************************************************/
 #include "io.h"
 #include <iostream>
+#include <ctime>
 #include "xmlParser.h"
 #include "XML_Parse.h"
 #include "processor.h"
@@ -39,63 +40,137 @@
 
 using namespace std;
 
-void print_usage(char * argv0);
+void print_usage(char *argv0);
+
+timespec diff(timespec start, timespec end);
 
 int main(int argc,char *argv[])
 {
-	char * fb ;
-	bool infile_specified     = false;
-	int  plevel               = 2;
-	opt_for_clk	=true;
-	//cout.precision(10);
-	if (argc <= 1 || argv[1] == string("-h") || argv[1] == string("--help"))
-	{
-		print_usage(argv[0]);
-	}
+//	char * fb ;
+//	bool infile_specified     = false;
+//	int  plevel               = 2;
+//	opt_for_clk	=true;
+//	//cout.precision(10);
+//	if (argc <= 1 || argv[1] == string("-h") || argv[1] == string("--help"))
+//	{
+//		print_usage(argv[0]);
+    char *fb;
 
-	for (int32_t i = 0; i < argc; i++)
-	{
-		if (argv[i] == string("-infile"))
-		{
-			infile_specified = true;
-			i++;
-			fb = argv[ i];
-		}
+    char *fb2;
 
-		if (argv[i] == string("-print_level"))
-		{
-			i++;
-			plevel = atoi(argv[i]);
-		}
+    bool infile_specified = false;
+    bool infile2_specified = false;
 
-		if (argv[i] == string("-opt_for_clk"))
-		{
-			i++;
-			opt_for_clk = (bool)atoi(argv[i]);
-		}
-	}
-	if (infile_specified == false)
-	{
-		print_usage(argv[0]);
-	}
+    int plevel = 2;
 
+    opt_for_clk = true;
+    // cout.precision(10);
+    if (argc <= 1 || argv[1] == string("-h")
+            || argv[1] == string("--help"))
+    {
+        print_usage(argv[0]);
+    }
 
-	cout<<"McPAT (version "<< VER_MAJOR <<"."<< VER_MINOR
-		<< " of " << VER_UPDATE << ") is computing the target processor...\n "<<endl;
+    for (int32_t i = 0; i < argc; i++)
+    {
+        if (argv[i] == string("-infile"))
+        {
+            infile_specified = true;
+            i++;
+            fb = argv[i];
+        }
 
-	//parse XML-based interface
-	ParseXML *p1= new ParseXML();
-	p1->parse(fb);
-	Processor proc(p1);
-	proc.displayEnergy(2, plevel);
-	delete p1;
-	return 0;
+        if (argv[i] == string("-infile2"))
+        {
+            infile2_specified = true;
+            i++;
+            fb2 = argv[i];
+        }
+
+        if (argv[i] == string("-print_level"))
+        {
+            i++;
+            plevel = atoi(argv[i]);
+        }
+
+        if (argv[i] == string("-opt_for_clk"))
+        {
+            i++;
+            opt_for_clk = (bool) atoi(argv[i]);
+        }
+    }
+
+    if ((infile_specified == false) || (infile2_specified == false))
+    {
+        print_usage(argv[0]);
+    }
+
+    cout << "McPAT (version " << VER_MAJOR << "." << VER_MINOR << " of " <<
+         VER_UPDATE << ") is computing the target processor...\n " << endl;
+
+    // parse XML-based interface
+    ParseXML *p1 = new ParseXML();
+
+    p1->parse(fb);
+    ParseXML *p2 = new ParseXML();
+
+    p2->parse(fb2);
+    timespec start, mid, end;
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+
+    Processor proc(p1);		// create configuration
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &mid);
+
+    proc.computeEnergy(p2, true);	// thermal design power
+    proc.computeEnergy(p2, false);	// runtime dynamic
+    proc.collectEnergy();
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
+
+    proc.displayEnergy(2, plevel);
+
+    delete p1;
+
+    delete p2;
+
+    cout << diff(start, mid).tv_sec << ":" << diff(start,
+            mid).tv_nsec << endl;
+    cout << diff(mid, end).tv_sec << ":" << diff(mid, end).tv_nsec << endl;
+    cout << diff(start, end).tv_sec << ":" << diff(start,
+            end).tv_nsec << endl;
+
+    return 0;
 }
 
 void print_usage(char * argv0)
 {
     cerr << "How to use McPAT:" << endl;
-    cerr << "  mcpat -infile <input file name>  -print_level < level of details 0~5 >  -opt_for_clk < 0 (optimize for ED^2P only)/1 (optimzed for target clock rate)>"<< endl;
+//    cerr << "  mcpat -infile <input file name>  -print_level < level of details 0~5 >  -opt_for_clk < 0 (optimize for ED^2P only)/1 (optimzed for target clock rate)>"<< endl;
     //cerr << "    Note:default print level is at processor level, please increase it to see the details" << endl;
+    cerr <<
+         "  mcpat -infile <input file name> -infile2 <input file name> -print_level < level of details 0~5 >  -opt_for_clk < 0 (optimize for ED^2P only)/1 (optimzed for target clock rate)>"
+         << endl;
+    // cerr << " Note:default print level is at processor level, please
+    // increase it to see the details" << endl;
+
     exit(1);
+}
+
+timespec diff(timespec start, timespec end)
+{
+    timespec temp;
+
+    if ((end.tv_nsec - start.tv_nsec) < 0)
+    {
+        temp.tv_sec = end.tv_sec - start.tv_sec - 1;
+        temp.tv_nsec = 1000000000 + end.tv_nsec - start.tv_nsec;
+    }
+    else
+    {
+        temp.tv_sec = end.tv_sec - start.tv_sec;
+        temp.tv_nsec = end.tv_nsec - start.tv_nsec;
+    }
+    return temp;
 }

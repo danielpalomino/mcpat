@@ -558,10 +558,16 @@ FunctionalUnit::FunctionalUnit(ParseXML *XML_interface, int ithCore_, InputParam
 		area.set_area(area.get_area()*macro_layout_overhead);
 }
 
-void FunctionalUnit::computeEnergy(bool is_tdp)
+//void FunctionalUnit::computeEnergy(bool is_tdp)
+void FunctionalUnit::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	double pppm_t[4]    = {1,1,1,1};
 	double FU_duty_cycle;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
 	{
 

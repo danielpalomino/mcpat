@@ -1216,42 +1216,42 @@ void ParseXML::parse(char* filepath)
 			}
 		}
 		//__________________________________________Get system.mem____________________________________________
-//		if (OrderofComponents_3layer>0) OrderofComponents_3layer=OrderofComponents_3layer+1;
-//		xNode3=xNode2.getChildNode("component",OrderofComponents_3layer);
-//		if (xNode3.isEmpty()==1) {
-//			printf("some value(s) of number_of_cores/number_of_L2s/number_of_L3s/number_of_NoCs is/are not correct!");
-//			exit(0);
-//		}
-//		if (strstr(xNode3.getAttribute("id"),"system.mem")!=NULL)
-//		{
-//
-//			itmp=xNode3.nChildNode("param");
-//			for(k=0; k<itmp; k++)
-//			{ //get all items of param in system.mem
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"mem_tech_node")==0) {sys.mem.mem_tech_node=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"device_clock")==0) {sys.mem.device_clock=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"peak_transfer_rate")==0) {sys.mem.peak_transfer_rate=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"capacity_per_channel")==0) {sys.mem.capacity_per_channel=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"number_ranks")==0) {sys.mem.number_ranks=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"num_banks_of_DRAM_chip")==0) {sys.mem.num_banks_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"Block_width_of_DRAM_chip")==0) {sys.mem.Block_width_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"output_width_of_DRAM_chip")==0) {sys.mem.output_width_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"page_size_of_DRAM_chip")==0) {sys.mem.page_size_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"burstlength_of_DRAM_chip")==0) {sys.mem.burstlength_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"internal_prefetch_of_DRAM_chip")==0) {sys.mem.internal_prefetch_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-//			}
-//			itmp=xNode3.nChildNode("stat");
-//			for(k=0; k<itmp; k++)
-//			{ //get all items of stat in system.mem
-//				if (strcmp(xNode3.getChildNode("stat",k).getAttribute("name"),"memory_accesses")==0) {sys.mem.memory_accesses=atof(xNode3.getChildNode("stat",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("stat",k).getAttribute("name"),"memory_reads")==0) {sys.mem.memory_reads=atof(xNode3.getChildNode("stat",k).getAttribute("value"));continue;}
-//				if (strcmp(xNode3.getChildNode("stat",k).getAttribute("name"),"memory_writes")==0) {sys.mem.memory_writes=atof(xNode3.getChildNode("stat",k).getAttribute("value"));continue;}
-//			}
-//		}
-//		else{
-//			printf("some value(s) of number_of_cores/number_of_L2s/number_of_L3s/number_of_NoCs is/are not correct!");
-//			exit(0);
-//		}
+		if (OrderofComponents_3layer>0) OrderofComponents_3layer=OrderofComponents_3layer+1;
+		xNode3=xNode2.getChildNode("component",OrderofComponents_3layer);
+		if (xNode3.isEmpty()==1) {
+			printf("some value(s) of number_of_cores/number_of_L2s/number_of_L3s/number_of_NoCs is/are not correct!");
+			exit(0);
+		}
+		if (strstr(xNode3.getAttribute("id"),"system.mem")!=NULL)
+		{
+
+			itmp=xNode3.nChildNode("param");
+			for(k=0; k<itmp; k++)
+			{ //get all items of param in system.mem
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"mem_tech_node")==0) {sys.mem.mem_tech_node=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"device_clock")==0) {sys.mem.device_clock=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"peak_transfer_rate")==0) {sys.mem.peak_transfer_rate=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"capacity_per_channel")==0) {sys.mem.capacity_per_channel=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"number_ranks")==0) {sys.mem.number_ranks=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"num_banks_of_DRAM_chip")==0) {sys.mem.num_banks_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"Block_width_of_DRAM_chip")==0) {sys.mem.Block_width_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"output_width_of_DRAM_chip")==0) {sys.mem.output_width_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"page_size_of_DRAM_chip")==0) {sys.mem.page_size_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"burstlength_of_DRAM_chip")==0) {sys.mem.burstlength_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"internal_prefetch_of_DRAM_chip")==0) {sys.mem.internal_prefetch_of_DRAM_chip=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+			}
+			itmp=xNode3.nChildNode("stat");
+			for(k=0; k<itmp; k++)
+			{ //get all items of stat in system.mem
+				if (strcmp(xNode3.getChildNode("stat",k).getAttribute("name"),"memory_accesses")==0) {sys.mem.memory_accesses=atof(xNode3.getChildNode("stat",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("stat",k).getAttribute("name"),"memory_reads")==0) {sys.mem.memory_reads=atof(xNode3.getChildNode("stat",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("stat",k).getAttribute("name"),"memory_writes")==0) {sys.mem.memory_writes=atof(xNode3.getChildNode("stat",k).getAttribute("value"));continue;}
+			}
+		}
+		else{
+			printf("some value(s) of number_of_cores/number_of_L2s/number_of_L3s/number_of_NoCs is/are not correct!");
+			exit(0);
+		}
 		//__________________________________________Get system.mc____________________________________________
 		if (OrderofComponents_3layer>0) OrderofComponents_3layer=OrderofComponents_3layer+1;
 		xNode3=xNode2.getChildNode("component",OrderofComponents_3layer);
