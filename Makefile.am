@@ -31,6 +31,8 @@ mcpat_SOURCES += processor.cc
 mcpat_SOURCES += processor.h
 mcpat_SOURCES += sharedcache.cc
 mcpat_SOURCES += sharedcache.h
+mcpat_SOURCES += streamlistener.cc
+mcpat_SOURCES += streamlistener.h
 mcpat_SOURCES += technology_xeon_core.cc
 mcpat_SOURCES += version.h
 mcpat_SOURCES += XML_Parse.cc
@@ -38,7 +40,7 @@ mcpat_SOURCES += XML_Parse.h
 mcpat_SOURCES += xmlParser.cc
 mcpat_SOURCES += xmlParser.h
 
-mcpat_LDADD = cacti/libcacti.a
+mcpat_LDADD = cacti/libcacti.a -lrt
 
 EXTRA_DIST =
 EXTRA_DIST += Alpha21364.xml
