@@ -1851,11 +1851,17 @@ Core::Core(ParseXML* XML_interface, int ithCore_, InputParameter* interface_ip_)
 }
 
 
-void BranchPredictor::computeEnergy(bool is_tdp)
+//void BranchPredictor::computeEnergy(bool is_tdp)
+void BranchPredictor::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	if (!exist) return;
 	double r_access;
 	double w_access;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
     {
     	r_access = coredynp.predictionW*coredynp.BR_duty_cycle;
@@ -2027,9 +2033,15 @@ void BranchPredictor::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 
 }
 
-void InstFetchU::computeEnergy(bool is_tdp)
+//void InstFetchU::computeEnergy(bool is_tdp)
+void InstFetchU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	if (!exist) return;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
     {
 		//init stats for Peak
@@ -2136,7 +2148,8 @@ void InstFetchU::computeEnergy(bool is_tdp)
 		BTB->power_t.readOp.dynamic   +=  BTB->local_result.power.readOp.dynamic*BTB->stats_t.readAc.access +
 		BTB->stats_t.writeAc.access*BTB->local_result.power.writeOp.dynamic;
 
-		BPT->computeEnergy(is_tdp);
+		//BPT->computeEnergy(is_tdp);
+		BPT->computeEnergy(XML, coredynp, is_tdp);
 	}
 
     if (is_tdp)
@@ -2312,9 +2325,15 @@ void InstFetchU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 
 }
 
-void RENAMINGU::computeEnergy(bool is_tdp)
+//void RENAMINGU::computeEnergy(bool is_tdp)
+void RENAMINGU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	if (!exist) return;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	double pppm_t[4]    = {1,1,1,1};
 	if (is_tdp)
 	{//init stats for Peak
@@ -2787,10 +2806,16 @@ void RENAMINGU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 }
 
 
-void SchedulerU::computeEnergy(bool is_tdp)
+//void SchedulerU::computeEnergy(bool is_tdp)
+void SchedulerU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	if (!exist) return;
 	double ROB_duty_cycle;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 //	ROB_duty_cycle = ((coredynp.ALU_duty_cycle + coredynp.num_muls>0?coredynp.MUL_duty_cycle:0
 //			+ coredynp.num_fpus>0?coredynp.FPU_duty_cycle:0))*1.1<1 ? (coredynp.ALU_duty_cycle + coredynp.num_muls>0?coredynp.MUL_duty_cycle:0
 //					+ coredynp.num_fpus>0?coredynp.FPU_duty_cycle:0)*1.1:1;
@@ -3055,9 +3080,15 @@ void SchedulerU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 
 }
 
-void LoadStoreU::computeEnergy(bool is_tdp)
+//void LoadStoreU::computeEnergy(bool is_tdp)
+void LoadStoreU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	if (!exist) return;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
 	    {
 	    	//init stats for Peak
@@ -3332,10 +3363,16 @@ void LoadStoreU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 
 }
 
-void MemManU::computeEnergy(bool is_tdp)
+//void MemManU::computeEnergy(bool is_tdp)
+void MemManU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 
 	if (!exist) return;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
     {
     	//init stats for Peak
@@ -3429,7 +3466,8 @@ void MemManU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 
 }
 
-void RegFU::computeEnergy(bool is_tdp)
+//void RegFU::computeEnergy(bool is_tdp)
+void RegFU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 /*
  * Architecture RF and physical RF cannot be present at the same time.
@@ -3437,6 +3475,11 @@ void RegFU::computeEnergy(bool is_tdp)
  * And the same stats can be used for both.
  */
 	if (!exist) return;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
     {
     	//init stats for Peak
@@ -3585,9 +3628,15 @@ void RegFU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 }
 
 
-void EXECU::computeEnergy(bool is_tdp)
+//void EXECU::computeEnergy(bool is_tdp)
+void EXECU::computeEnergy(ParseXML * XML, const CoreDynParam & dyn_p_, bool is_tdp)
 {
 	if (!exist) return;
+
+	coredynp = dyn_p_;
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	double pppm_t[4]    = {1,1,1,1};
 //	rfu->power.reset();
 //	rfu->rt_power.reset();
@@ -3596,16 +3645,23 @@ void EXECU::computeEnergy(bool is_tdp)
 //	exeu->power.reset();
 //	exeu->rt_power.reset();
 
-	rfu->computeEnergy(is_tdp);
-	scheu->computeEnergy(is_tdp);
-	exeu->computeEnergy(is_tdp);
+//	rfu->computeEnergy(is_tdp);
+//	scheu->computeEnergy(is_tdp);
+//	exeu->computeEnergy(is_tdp);
+
+    rfu->computeEnergy(XML, coredynp, is_tdp);
+    scheu->computeEnergy(XML, coredynp, is_tdp);
+    exeu->computeEnergy(XML, coredynp, is_tdp);
+
 	if (coredynp.num_fpus >0)
 	{
-		fp_u->computeEnergy(is_tdp);
+//		fp_u->computeEnergy(is_tdp);
+        fp_u->computeEnergy(XML, coredynp, is_tdp);
 	}
 	if (coredynp.num_muls >0)
 	{
-		mul->computeEnergy(is_tdp);
+//		mul->computeEnergy(is_tdp);
+        mul->computeEnergy(XML, coredynp, is_tdp);
 	}
 
 	if (is_tdp)
@@ -3723,23 +3779,39 @@ void EXECU::displayEnergy(uint32_t indent,int plevel,bool is_tdp)
 
 }
 
-void Core::computeEnergy(bool is_tdp)
+//void Core::computeEnergy(bool is_tdp)
+void Core::computeEnergy(ParseXML * XML_conf, bool is_tdp)
 {
 	//power_point_product_masks
 	double pppm_t[4]    = {1,1,1,1};
     double rtp_pipeline_coe;
     double num_units = 4.0;
+
+    XML = XML_conf;
+
+    set_core_param();
+    clockRate = coredynp.clockRate;
+    executionTime = coredynp.executionTime;
+
 	if (is_tdp)
 	{
-		ifu->computeEnergy(is_tdp);
-		lsu->computeEnergy(is_tdp);
-		mmu->computeEnergy(is_tdp);
-		exu->computeEnergy(is_tdp);
+//		ifu->computeEnergy(is_tdp);
+//		lsu->computeEnergy(is_tdp);
+//		mmu->computeEnergy(is_tdp);
+//		exu->computeEnergy(is_tdp);
+
+        ifu->computeEnergy(XML, coredynp, is_tdp);
+        lsu->computeEnergy(XML, coredynp, is_tdp);
+        mmu->computeEnergy(XML, coredynp, is_tdp);
+        exu->computeEnergy(XML, coredynp, is_tdp);
 
 		if (coredynp.core_ty==OOO)
 		{
 			num_units = 5.0;
-			rnu->computeEnergy(is_tdp);
+//			rnu->computeEnergy(is_tdp);
+
+            rnu->computeEnergy(XML, coredynp, is_tdp);
+
 			set_pppm(pppm_t, coredynp.num_pipelines/num_units, coredynp.num_pipelines/num_units, coredynp.num_pipelines/num_units, coredynp.num_pipelines/num_units);
 			if (rnu->exist)
 			{
@@ -3788,7 +3860,10 @@ void Core::computeEnergy(bool is_tdp)
 		if (XML->sys.Private_L2)
 		{
 
-			l2cache->computeEnergy(is_tdp);
+//			l2cache->computeEnergy(is_tdp);
+
+			l2cache->computeEnergy(XML, is_tdp);
+
 			set_pppm(pppm_t,l2cache->cachep.clockRate/clockRate, 1,1,1);
 			//l2cache->power = l2cache->power*pppm_t;
 			power = power  + l2cache->power*pppm_t;
@@ -3796,14 +3871,23 @@ void Core::computeEnergy(bool is_tdp)
 	}
 	else
 	{
-		ifu->computeEnergy(is_tdp);
-		lsu->computeEnergy(is_tdp);
-		mmu->computeEnergy(is_tdp);
-		exu->computeEnergy(is_tdp);
+//		ifu->computeEnergy(is_tdp);
+//		lsu->computeEnergy(is_tdp);
+//		mmu->computeEnergy(is_tdp);
+//		exu->computeEnergy(is_tdp);
+
+		ifu->computeEnergy(XML, coredynp, is_tdp);
+        lsu->computeEnergy(XML, coredynp, is_tdp);
+        mmu->computeEnergy(XML, coredynp, is_tdp);
+        exu->computeEnergy(XML, coredynp, is_tdp);
+
 		if (coredynp.core_ty==OOO)
 		{
 			num_units = 5.0;
-			rnu->computeEnergy(is_tdp);
+//			rnu->computeEnergy(is_tdp);
+
+			rnu->computeEnergy(XML, coredynp, is_tdp);
+
         	set_pppm(pppm_t, coredynp.num_pipelines/num_units, coredynp.num_pipelines/num_units, coredynp.num_pipelines/num_units, coredynp.num_pipelines/num_units);
 			if (rnu->exist)
 			{
@@ -3851,7 +3935,10 @@ void Core::computeEnergy(bool is_tdp)
 		if (XML->sys.Private_L2)
 		{
 
-			l2cache->computeEnergy(is_tdp);
+//			l2cache->computeEnergy(is_tdp);
+
+			l2cache->computeEnergy(XML, is_tdp);
+
 			//set_pppm(pppm_t,1/l2cache->cachep.executionTime, 1,1,1);
 			//l2cache->rt_power = l2cache->rt_power*pppm_t;
 			rt_power = rt_power  + l2cache->rt_power;

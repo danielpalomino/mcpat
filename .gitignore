@@ -1,3 +1,9 @@
+# CodeBlocks project file
+*.cbp
+
+# Binary file
+mcpat
+
 # Compiled Object files
 *.slo
 *.lo

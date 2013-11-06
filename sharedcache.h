@@ -60,7 +60,8 @@ class SharedCache :public Component{
 
     SharedCache(ParseXML *XML_interface, int ithCache_, InputParameter* interface_ip_,enum cache_level cacheL_ =L2);
     void set_cache_param();
-	void computeEnergy(bool is_tdp=true);
+//	void computeEnergy(bool is_tdp=true);
+	void computeEnergy(ParseXML * XML, bool is_tdp = true);
     void displayEnergy(uint32_t indent = 0,bool is_tdp=true);
     ~SharedCache(){};
 };
@@ -80,7 +81,8 @@ class CCdir :public Component{
     Component L2Tot, cc, cc1, ccTot;
 
     CCdir(ParseXML *XML_interface, int ithCache_, InputParameter* interface_ip_);
-    void computeEnergy(bool is_tdp=true);
+//    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML, bool is_tdp = true);
     void displayEnergy(uint32_t indent = 0,bool is_tdp=true);
     ~CCdir();
 };

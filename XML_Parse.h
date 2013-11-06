@@ -586,8 +586,12 @@ typedef struct{
 
 class ParseXML
 {
+    void parse(XMLNode &xMainNode);
+    const bool __report_enabled; // enabled switch for debug.h
 public:
+    ParseXML(bool report_parser_progress = false) : __report_enabled(report_parser_progress) {}
 	void parse(char* filepath);
+	void parse(const std::string &filebuffer);
     void initialize();
 public:
 	root_system sys;
