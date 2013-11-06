@@ -49,14 +49,7 @@ timespec diff(timespec start, timespec end);
 
 int main(int argc,char *argv[])
 {
-//	char * fb ;
-//	bool infile_specified     = false;
-//	int  plevel               = 2;
-//	opt_for_clk	=true;
-//	//cout.precision(10);
-//	if (argc <= 1 || argv[1] == string("-h") || argv[1] == string("--help"))
-//	{
-//		print_usage(argv[0]);
+
     char *fb;
 
     bool infile_specified = false;
