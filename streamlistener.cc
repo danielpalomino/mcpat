@@ -1,12 +1,14 @@
 #include "streamlistener.h"
 #include "XML_Parse.h"
-
 #include <exception>
 #include <stdexcept>
 #include <algorithm>
 #include <iterator>
 #include <string>
 #include <memory>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 StreamListener::StreamListener(std::istream &in, Processor &proc, int verbosity)
  : in(in), proc(proc), verbosity(verbosity)
@@ -26,9 +28,32 @@ void StreamListener::energyCalculationLoop()
         // displayEnergy are called.
         std::auto_ptr<ParseXML> xml(new ParseXML);
         xml->parse(filebuf);
+        processRequest(xml.get());
+    }
+}
 
-        computeEnergy(xml.get());
+void StreamListener::processRequest(ParseXML *xml)
+{
+    // Unfortunately the code in McPAT is not written in a way where it can do
+    // multiple energy statistic calculation for a computed platform (for
+    // example, see the computeEnergy() function in noc.cc, where it stores
+    // results in some attributes used earlier in the function).
+    //
+    // To overcome this limitation we call computeEnergy() in a background
+    // process, i.e., we use the fork() semantics as a way of checkpointing
+    // McPAT's state.
+
+    pid_t child_pid = fork();
+    if (0 == child_pid) {
+        computeEnergy(xml);
         displayEnergy();
+        exit(0);
+    } else {
+        if (child_pid != waitpid(child_pid, NULL, 0)) {
+            std::cerr << __FILE__ << ":" << __LINE__
+                      << " waitpid() returned something unexpected: "
+                      << child_pid << std::endl;
+        }
     }
 }
 
