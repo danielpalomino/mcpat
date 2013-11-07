@@ -30,7 +30,6 @@
  ***************************************************************************/
 #include "io.h"
 #include <iostream>
-#include <ctime>
 #include <fstream>
 #include <memory>
 #include "xmlParser.h"
@@ -39,13 +38,11 @@
 #include "streamlistener.h"
 #include "globalvar.h"
 #include "version.h"
-
+#include "timer.h"
 
 using namespace std;
 
 void print_usage(char *argv0);
-
-timespec diff(timespec start, timespec end);
 
 int main(int argc,char *argv[])
 {
@@ -91,7 +88,7 @@ int main(int argc,char *argv[])
             opt_for_clk = (bool) atoi(argv[i]);
         }
         else {
-            print_usage(argv[0]);
+            print_usage(argv[i]);
         }
     }
 
@@ -107,24 +104,14 @@ int main(int argc,char *argv[])
     std::auto_ptr<ParseXML> p1(new ParseXML(report_parser_progress));
     p1->parse(fb);
 
-    timespec start, mid, end;
-
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+    Timer::global().round("config");
 
     Processor proc(p1.get());		// create configuration
-
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &mid);
 
     StreamListener listener(std::cin, proc);
     listener.energyCalculationLoop();
 
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
-
-    cout << diff(start, mid).tv_sec << ":" << diff(start,
-            mid).tv_nsec << endl;
-    cout << diff(mid, end).tv_sec << ":" << diff(mid, end).tv_nsec << endl;
-    cout << diff(start, end).tv_sec << ":" << diff(start,
-            end).tv_nsec << endl;
+    cout << Timer::global();
 
     return 0;
 }
@@ -139,21 +126,4 @@ void print_usage(char * argv0)
     // increase it to see the details" << endl;
 
     exit(1);
-}
-
-timespec diff(timespec start, timespec end)
-{
-    timespec temp;
-
-    if ((end.tv_nsec - start.tv_nsec) < 0)
-    {
-        temp.tv_sec = end.tv_sec - start.tv_sec - 1;
-        temp.tv_nsec = 1000000000 + end.tv_nsec - start.tv_nsec;
-    }
-    else
-    {
-        temp.tv_sec = end.tv_sec - start.tv_sec;
-        temp.tv_nsec = end.tv_nsec - start.tv_nsec;
-    }
-    return temp;
 }

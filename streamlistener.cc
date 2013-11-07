@@ -1,5 +1,7 @@
 #include "streamlistener.h"
 #include "XML_Parse.h"
+#include "timer.h"
+
 #include <exception>
 #include <stdexcept>
 #include <algorithm>
@@ -23,12 +25,14 @@ const std::string StreamListener::endtag("</component>");
 void StreamListener::energyCalculationLoop()
 {
     while (readXmlRequest()) {
+        Timer::global().start();
         // Processor::computeEnergy stores a reference to the xml object,
         // therefore, it must stay alive until both computeEnergy and
         // displayEnergy are called.
         std::auto_ptr<ParseXML> xml(new ParseXML);
         xml->parse(filebuf);
         processRequest(xml.get());
+        Timer::global().round("request");
     }
 }
 
