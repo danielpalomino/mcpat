@@ -4,7 +4,7 @@ bin_PROGRAMS = mcpat
 
 mcpat_CPPFLAGS = -I$(abs_top_srcdir)/cacti
 
-AM_CXXFLAGS = -m32 -pthread -Wno-unknown-pragmas -DNTHREADS=$(NTHREADS)
+AM_CXXFLAGS = -std=c++0x -m32 -pthread -Wno-unknown-pragmas -DNTHREADS=$(NTHREADS)
 export AM_CXXFLAGS
 
 mcpat_SOURCES =
