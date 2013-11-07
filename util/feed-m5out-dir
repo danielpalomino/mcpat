@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+################################################################################
+# This script runs McPat on the output of M5 written to one of its m5out
+# directories.
+#
+# It creates a McPat XML file containing the system configuration for use as
+# -infile argument to McPat and then calls McPat once for each stats dump
+# written to the stats.txt. To create the XML file and the XML requests it uses
+# the m5-mcpat-parser script for translation.
+#
+# For supported command line arguments see the output of this script's --help
+# argument.
+#
+# Author: Sascha Friedmann                                     Date: Dec 2012
+################################################################################
+
+declare m5_mcpat_parser=m5-mcpat-parse-se
+declare mcpat_sim=mcpat
+declare -i debug=0
+
+die()
+{
+    printf "%s\n" "$@" >&2
+    exit 1
+}
+
+usage="Usage: feed-m5out-dir [-t M5-MCPAT-PARSER] [-s MCPAT] M5OUT-DIR
+       	-t M5-MCPAT-PARSER    The path to the m5-mcpat-parser script.
+       	-s MCPAT              The path to the McPat simulator.
+       	M5OUT-DIR             The path to the M5 logging output directory.
+
+"
+
+# Parse the command line arguments
+while getopts "t: s: h d" arg; do
+    case "$arg" in
+        t)
+            m5_mcpat_parser="$OPTARG"
+            [[ -x "$m5_mcpat_parser" ]] || die "m5-mcpat-parser script '$m5_mcpat_parser' is not executable."
+            ;;
+        s)
+            mcpat_sim="$OPTARG"
+            [[ -x "$mcpat_sim" ]] || die "mcpat simulator '$mcpat_sim' is not executable."
+            ;;
+        h)
+            echo "$usage"
+            exit
+            ;;
+        d)
+            debug=1
+            echo "Debug mode enabled."
+            ;;
+    esac
+done
+
+# Grab the m5out directory
+(( $OPTIND == $#+1 )) && die "Error: no m5out directory given." "" "$usage"
+(( $OPTIND < $# )) && die "Error: too many arguments for m5out directory given." "" "$usage"
+m5out_dir="${@:((-1))}"
+
+[[ -d "$m5out_dir" ]] || die "Error: m5out directory '$m5out_dir' does not exist or is not a directory."
+
+# Create the XML file for McPat's -infile parameter
+if ((debug)); then
+    mcpat_system_config="mcpat-system-config.xml"
+else
+    mcpat_system_config=$(mktemp)
+    trap 'rm -f "$mcpat_system_config"' EXIT
+fi
+
+"$m5_mcpat_parser" --summary_fn=/dev/null --power_fn="$mcpat_system_config" -O systemConfig -o "$m5out_dir" -c cpu || \
+die "Error: calling m5-mcpat-parser for XML file creation failed."
+
+# This function reads a stats.txt file, splits it and writes a McPAT XML
+# request for each of it to stdout.
+feed_m5stats()
+{
+    local tmp_stats="stats.txt$$"
+    ((debug)) || trap 'rm -f "$tmp_stats"' EXIT
+
+    local -i new_dump=0
+    local -i do_dump=0
+    local -i dispatch=0
+
+    while read -u 4 line; do
+        [[ "$line" = *Begin\ Simulation\ Statistics* ]] && ((new_dump=1))
+        [[ "$line" = *End\ Simulation\ Statistics* ]] && ((dispatch=1))
+
+        if ((new_dump)); then
+            exec 5>"$m5out_dir/$tmp_stats"
+            new_dump=0
+            do_dump=1
+        fi
+
+        if ((do_dump)); then
+            echo "$line" >&5
+        fi
+
+        if ((dispatch)); then
+            do_dump=0
+            dispatch=0
+            "$m5_mcpat_parser" --power_fn="/dev/stdout" --summary_fn="/dev/null" --stats_fn="$tmp_stats" -c cpu -o "$m5out_dir"
+        fi
+    done 4< "$m5out_dir/stats.txt"
+}
+
+feed_m5stats | "$mcpat_sim" -infile "$mcpat_system_config"
