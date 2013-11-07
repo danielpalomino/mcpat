@@ -108,7 +108,7 @@ int main(int argc,char *argv[])
 
     Processor proc(p1.get());		// create configuration
 
-    StreamListener listener(std::cin, proc);
+    StreamListener listener(std::cin, proc, plevel);
     listener.energyCalculationLoop();
 
     cout << Timer::global();
