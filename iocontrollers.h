@@ -51,7 +51,7 @@ class NIUController : public Component {
     uca_org_t local_result;
     NIUController(ParseXML *XML_interface,InputParameter* interface_ip_);
     void set_niu_param();
-    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML_conf, bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~NIUController(){};
 };
@@ -65,7 +65,7 @@ class PCIeController : public Component {
     uca_org_t local_result;
     PCIeController(ParseXML *XML_interface,InputParameter* interface_ip_);
     void set_pcie_param();
-    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML_conf, bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~PCIeController(){};
 };
@@ -79,7 +79,7 @@ class FlashController : public Component {
     uca_org_t local_result;
     FlashController(ParseXML *XML_interface,InputParameter* interface_ip_);
     void set_fc_param();
-    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML_conf, bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~FlashController(){};
 };

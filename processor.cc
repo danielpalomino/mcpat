@@ -467,29 +467,29 @@ void Processor::computeEnergy(ParseXML * XML_conf, bool is_tdp)
     if (XML->sys.mc.number_mcs > 0
             && XML->sys.mc.memory_channels_per_mc > 0)
     {
-        mc->computeEnergy(is_tdp);
+        mc->computeEnergy(XML, is_tdp);
     }
 
     if (XML->sys.flashc.number_mcs > 0)	// flash controller
     {
-        flashcontroller->computeEnergy(is_tdp);
+        flashcontroller->computeEnergy(XML, is_tdp);
     }
 
     if (XML->sys.niu.number_units > 0)
     {
-        niu->computeEnergy(is_tdp);
+        niu->computeEnergy(XML, is_tdp);
     }
 
     if (XML->sys.pcie.number_units > 0 && XML->sys.pcie.num_channels > 0)
     {
-        pcie->computeEnergy(is_tdp);
+        pcie->computeEnergy(XML, is_tdp);
     }
 
     if (numNOC > 0)
     {
         for (i = 0; i < numNOC; i++)
         {
-            nocs[i]->computeEnergy(is_tdp);
+            nocs[i]->computeEnergy(XML, is_tdp);
         }
     }
 }

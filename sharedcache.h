@@ -60,8 +60,7 @@ class SharedCache :public Component{
 
     SharedCache(ParseXML *XML_interface, int ithCache_, InputParameter* interface_ip_,enum cache_level cacheL_ =L2);
     void set_cache_param();
-//	void computeEnergy(bool is_tdp=true);
-	void computeEnergy(ParseXML * XML, bool is_tdp = true);
+    void computeEnergy(ParseXML * XML_conf, bool is_tdp = true);
     void displayEnergy(uint32_t indent = 0,bool is_tdp=true);
     ~SharedCache(){};
 };

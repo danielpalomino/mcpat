@@ -152,10 +152,14 @@ void NoC ::init_link_bus(double link_len_)
 	area.set_area(area.get_area()+ link_bus_tot_per_Router.area.get_area()* nocdynp.total_nodes);
 	link_bus_exist = true;
 }
-void NoC::computeEnergy(bool is_tdp)
+void NoC::computeEnergy(ParseXML * XML_conf, bool is_tdp)
 {
 	//power_point_product_masks
 	double pppm_t[4]    = {1,1,1,1};
+
+	XML = XML_conf;
+	set_noc_param();
+
 	double M=nocdynp.duty_cycle;
 	if (is_tdp)
 	    {

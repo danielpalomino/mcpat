@@ -52,7 +52,7 @@ class MCBackend : public Component {
     powerDef power_t;
     MCBackend(InputParameter* interface_ip_, const MCParam & mcp_, enum MemoryCtrl_type mc_type_);
     void compute();
-	void computeEnergy(bool is_tdp=true);
+	void computeEnergy(const MCParam & mcp_, bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~MCBackend(){};
 };
@@ -69,7 +69,7 @@ class MCPHY : public Component {
     powerDef       power_t;
     MCPHY(InputParameter* interface_ip_, const MCParam & mcp_, enum MemoryCtrl_type mc_type_);
     void compute();
-	void computeEnergy(bool is_tdp=true);
+	void computeEnergy(const MCParam & mcp_, bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~MCPHY(){};
 };
@@ -86,7 +86,7 @@ class MCFrontEnd : public Component {
 	ArrayST  * writeBuffer;
 
     MCFrontEnd(ParseXML *XML_interface,InputParameter* interface_ip_, const MCParam & mcp_, enum MemoryCtrl_type mc_type_);
-    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML_conf, const MCParam & mcp_,  bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~MCFrontEnd();
 };
@@ -105,7 +105,7 @@ class MemoryController : public Component {
     //clock_network clockNetwork;
     MemoryController(ParseXML *XML_interface,InputParameter* interface_ip_, enum MemoryCtrl_type mc_type_);
     void set_mc_param();
-    void computeEnergy(bool is_tdp=true);
+    void computeEnergy(ParseXML * XML_conf, bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,int plevel = 100, bool is_tdp=true);
     ~MemoryController();
 };

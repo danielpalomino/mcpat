@@ -139,8 +139,9 @@ void MCBackend::compute()
 
 }
 
-void MCBackend::computeEnergy(bool is_tdp)
+void MCBackend::computeEnergy(const MCParam & mcp_, bool is_tdp)
 {
+    mcp = mcp_;
 	//backend uses internal data buswidth
 	if (is_tdp)
 	{
@@ -244,8 +245,10 @@ void MCPHY::compute()
 }
 
 
-void MCPHY::computeEnergy(bool is_tdp)
+void MCPHY::computeEnergy(const MCParam & mcp_, bool is_tdp)
 {
+	mcp = mcp_;
+
 	if (is_tdp)
 	{
 		//init stats for Peak
@@ -385,8 +388,11 @@ MCFrontEnd::MCFrontEnd(ParseXML *XML_interface,InputParameter* interface_ip_, co
   area.set_area(area.get_area()+ writeBuffer->local_result.area*XML->sys.mc.memory_channels_per_mc);
 }
 
-void MCFrontEnd::computeEnergy(bool is_tdp)
+void MCFrontEnd::computeEnergy(ParseXML * XML_conf, const MCParam & mcp_, bool is_tdp)
 {
+    XML = XML_conf;
+	mcp = mcp_;
+
 	if (is_tdp)
 	    {
 	    	//init stats for Peak
@@ -588,14 +594,17 @@ MemoryController::MemoryController(ParseXML *XML_interface,InputParameter* inter
 
 
 }
-void MemoryController::computeEnergy(bool is_tdp)
+void MemoryController::computeEnergy(ParseXML * XML_conf, bool is_tdp)
 {
 
-	frontend->computeEnergy(is_tdp);
-	transecEngine->computeEnergy(is_tdp);
+	XML = XML_conf;
+	set_mc_param();
+	frontend->computeEnergy(XML, mcp, is_tdp);
+	transecEngine->computeEnergy(mcp, is_tdp);
+
 	if (mcp.type==0 || (mcp.type==1&&mcp.withPHY))
 	{
-		PHY->computeEnergy(is_tdp);
+		PHY->computeEnergy(mcp, is_tdp);
 	}
 	if (is_tdp)
 	{

@@ -598,8 +598,11 @@ SharedCache::SharedCache(ParseXML* XML_interface, int ithCache_, InputParameter*
 
 
 //void SharedCache::computeEnergy(bool is_tdp)
-void SharedCache::computeEnergy(ParseXML * XML, bool is_tdp)
+void SharedCache::computeEnergy(ParseXML * XML_conf, bool is_tdp)
 {
+    XML = XML_conf;
+	set_cache_param();
+
 	double homenode_data_access = (cachep.dir_ty==SBT)? 0.9:1.0;
 	if (is_tdp)
 	{
