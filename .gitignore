@@ -31,3 +31,6 @@ depcomp
 install-sh
 missing
 install.log
+
+# McPat output files
+*.log

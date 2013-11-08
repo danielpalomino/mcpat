@@ -1,0 +1,324 @@
+<?xml version="1.0" ?>
+<component id="root" name="root">
+	<component id="system" name="system">
+		<param name="number_of_cores" value="4"/>
+		<param name="number_of_L1Directories" value="1"/>
+		<param name="number_of_L2Directories" value="0"/>
+		<param name="number_of_L2s" value="1"/>
+		<param name="number_of_L3s" value="0"/>
+		<param name="number_of_NoCs" value="1"/>
+		<param name="homogeneous_cores" value="0"/>
+		<param name="homogeneous_L2s" value="1"/>
+		<param name="homogeneous_L1Directories" value="1"/>
+		<param name="homogeneous_L2Directories" value="0"/>
+		<param name="homogeneous_L3s" value="0"/>
+		<param name="homogeneous_ccs" value="1"/>
+		<param name="homogeneous_NoCs" value="0"/>
+		<param name="core_tech_node" value="32"/>
+		<param name="target_core_clockrate" value="3000"/>
+		<param name="temperature" value="350"/>
+		<param name="number_cache_levels" value="2"/>
+		<param name="interconnect_projection_type" value="0"/>
+		<param name="device_type" value="0"/>
+		<param name="longer_channel_device" value="0"/>
+		<param name="machine_bits" value="64"/>
+		<param name="virtual_address_width" value="64"/>
+		<param name="physical_address_width" value="52"/>
+		<param name="virtual_memory_page_size" value="4096"/>
+		<param name="number_of_dir_levels" value="1"/>
+		<component id="system.core0" name="core0">
+			<param name="clock_rate" value="2000"/>
+			<param name="instruction_length" value="32"/>
+			<param name="opcode_width" value="7"/>
+			<param name="machine_type" value="1"/>
+			<param name="number_hardware_threads" value="1"/>
+			<param name="fetch_width" value="2"/>
+			<param name="number_instruction_fetch_ports" value="1"/>
+			<param name="decode_width" value="1"/>
+			<param name="issue_width" value="1"/>
+			<param name="commit_width" value="1"/>
+			<param name="fp_issue_width" value="1"/>
+			<param name="prediction_width" value="1"/>
+			<param name="pipelines_per_core" value="1,1"/>
+			<param name="pipeline_depth" value="7,10"/>
+			<param name="ALU_per_core" value="2"/>
+			<param name="MUL_per_core" value="1"/>
+			<param name="FPU_per_core" value="1"/>
+			<param name="instruction_buffer_size" value="32"/>
+			<param name="decoded_stream_buffer_size" value="16"/>
+			<param name="instruction_window_scheme" value="0"/>
+			<param name="instruction_window_size" value="16"/>
+			<param name="fp_instruction_window_size" value="16"/>
+			<param name="ROB_size" value="80"/>
+			<param name="archi_Regs_IRF_size" value="32"/>
+			<param name="archi_Regs_FRF_size" value="32"/>
+			<param name="phy_Regs_IRF_size" value="32"/>
+			<param name="phy_Regs_FRF_size" value="32"/>
+			<param name="rename_scheme" value="0"/>
+			<param name="register_windows_size" value="0"/>
+			<param name="LSU_order" value="inorder"/>
+			<param name="store_buffer_size" value="64"/>
+			<param name="load_buffer_size" value="0"/>
+			<param name="memory_ports" value="1"/>
+			<param name="RAS_size" value="32"/>
+			<component id="system.core0.predictor" name="PBT">
+				<param name="local_predictor_size" value="10,3"/>
+				<param name="local_predictor_entries" value="1024"/>
+				<param name="global_predictor_entries" value="4096"/>
+				<param name="global_predictor_bits" value="2"/>
+				<param name="chooser_predictor_entries" value="4096"/>
+				<param name="chooser_predictor_bits" value="2"/>
+			</component>
+			<component id="system.core0.itlb" name="itlb">
+				<param name="number_entries" value="48"/>
+			</component>
+			<component id="system.core0.dtlb" name="dtlb">
+				<param name="number_entries" value="64"/>
+			</component>
+			<component id="system.core0.BTB" name="BTB">
+				<param name="BTB_config" value="6144,4,2,1,1,3"/>
+				<param name="read_accesses" value="0"/>
+				<param name="write_accesses" value="0"/>
+			</component>
+		</component>
+		<component id="system.core1" name="core1">
+			<param name="clock_rate" value="2000"/>
+			<param name="instruction_length" value="32"/>
+			<param name="opcode_width" value="7"/>
+			<param name="machine_type" value="1"/>
+			<param name="number_hardware_threads" value="1"/>
+			<param name="fetch_width" value="2"/>
+			<param name="number_instruction_fetch_ports" value="1"/>
+			<param name="decode_width" value="1"/>
+			<param name="issue_width" value="1"/>
+			<param name="commit_width" value="1"/>
+			<param name="fp_issue_width" value="1"/>
+			<param name="prediction_width" value="1"/>
+			<param name="pipelines_per_core" value="1,1"/>
+			<param name="pipeline_depth" value="7,10"/>
+			<param name="ALU_per_core" value="2"/>
+			<param name="MUL_per_core" value="1"/>
+			<param name="FPU_per_core" value="1"/>
+			<param name="instruction_buffer_size" value="32"/>
+			<param name="decoded_stream_buffer_size" value="16"/>
+			<param name="instruction_window_scheme" value="0"/>
+			<param name="instruction_window_size" value="16"/>
+			<param name="fp_instruction_window_size" value="16"/>
+			<param name="ROB_size" value="80"/>
+			<param name="archi_Regs_IRF_size" value="32"/>
+			<param name="archi_Regs_FRF_size" value="32"/>
+			<param name="phy_Regs_IRF_size" value="32"/>
+			<param name="phy_Regs_FRF_size" value="32"/>
+			<param name="rename_scheme" value="0"/>
+			<param name="register_windows_size" value="0"/>
+			<param name="LSU_order" value="inorder"/>
+			<param name="store_buffer_size" value="64"/>
+			<param name="load_buffer_size" value="0"/>
+			<param name="memory_ports" value="1"/>
+			<param name="RAS_size" value="32"/>
+			<component id="system.core1.predictor" name="PBT">
+				<param name="local_predictor_size" value="10,3"/>
+				<param name="local_predictor_entries" value="1024"/>
+				<param name="global_predictor_entries" value="4096"/>
+				<param name="global_predictor_bits" value="2"/>
+				<param name="chooser_predictor_entries" value="4096"/>
+				<param name="chooser_predictor_bits" value="2"/>
+			</component>
+			<component id="system.core1.itlb" name="itlb">
+				<param name="number_entries" value="48"/>
+			</component>
+			<component id="system.core1.dtlb" name="dtlb">
+				<param name="number_entries" value="64"/>
+			</component>
+			<component id="system.core1.BTB" name="BTB">
+				<param name="BTB_config" value="6144,4,2,1,1,3"/>
+				<param name="read_accesses" value="0"/>
+				<param name="write_accesses" value="0"/>
+			</component>
+		</component>
+		<component id="system.core2" name="core2">
+			<param name="clock_rate" value="2000"/>
+			<param name="instruction_length" value="32"/>
+			<param name="opcode_width" value="7"/>
+			<param name="machine_type" value="1"/>
+			<param name="number_hardware_threads" value="1"/>
+			<param name="fetch_width" value="2"/>
+			<param name="number_instruction_fetch_ports" value="1"/>
+			<param name="decode_width" value="1"/>
+			<param name="issue_width" value="1"/>
+			<param name="commit_width" value="1"/>
+			<param name="fp_issue_width" value="1"/>
+			<param name="prediction_width" value="1"/>
+			<param name="pipelines_per_core" value="1,1"/>
+			<param name="pipeline_depth" value="7,10"/>
+			<param name="ALU_per_core" value="2"/>
+			<param name="MUL_per_core" value="1"/>
+			<param name="FPU_per_core" value="1"/>
+			<param name="instruction_buffer_size" value="32"/>
+			<param name="decoded_stream_buffer_size" value="16"/>
+			<param name="instruction_window_scheme" value="0"/>
+			<param name="instruction_window_size" value="16"/>
+			<param name="fp_instruction_window_size" value="16"/>
+			<param name="ROB_size" value="80"/>
+			<param name="archi_Regs_IRF_size" value="32"/>
+			<param name="archi_Regs_FRF_size" value="32"/>
+			<param name="phy_Regs_IRF_size" value="32"/>
+			<param name="phy_Regs_FRF_size" value="32"/>
+			<param name="rename_scheme" value="0"/>
+			<param name="register_windows_size" value="0"/>
+			<param name="LSU_order" value="inorder"/>
+			<param name="store_buffer_size" value="64"/>
+			<param name="load_buffer_size" value="0"/>
+			<param name="memory_ports" value="1"/>
+			<param name="RAS_size" value="32"/>
+			<component id="system.core2.predictor" name="PBT">
+				<param name="local_predictor_size" value="10,3"/>
+				<param name="local_predictor_entries" value="1024"/>
+				<param name="global_predictor_entries" value="4096"/>
+				<param name="global_predictor_bits" value="2"/>
+				<param name="chooser_predictor_entries" value="4096"/>
+				<param name="chooser_predictor_bits" value="2"/>
+			</component>
+			<component id="system.core2.itlb" name="itlb">
+				<param name="number_entries" value="48"/>
+			</component>
+			<component id="system.core2.dtlb" name="dtlb">
+				<param name="number_entries" value="64"/>
+			</component>
+			<component id="system.core2.BTB" name="BTB">
+				<param name="BTB_config" value="6144,4,2,1,1,3"/>
+				<param name="read_accesses" value="0"/>
+				<param name="write_accesses" value="0"/>
+			</component>
+		</component>
+		<component id="system.core3" name="core3">
+			<param name="clock_rate" value="2000"/>
+			<param name="instruction_length" value="32"/>
+			<param name="opcode_width" value="7"/>
+			<param name="machine_type" value="1"/>
+			<param name="number_hardware_threads" value="1"/>
+			<param name="fetch_width" value="2"/>
+			<param name="number_instruction_fetch_ports" value="1"/>
+			<param name="decode_width" value="1"/>
+			<param name="issue_width" value="1"/>
+			<param name="commit_width" value="1"/>
+			<param name="fp_issue_width" value="1"/>
+			<param name="prediction_width" value="1"/>
+			<param name="pipelines_per_core" value="1,1"/>
+			<param name="pipeline_depth" value="7,10"/>
+			<param name="ALU_per_core" value="2"/>
+			<param name="MUL_per_core" value="1"/>
+			<param name="FPU_per_core" value="1"/>
+			<param name="instruction_buffer_size" value="32"/>
+			<param name="decoded_stream_buffer_size" value="16"/>
+			<param name="instruction_window_scheme" value="0"/>
+			<param name="instruction_window_size" value="16"/>
+			<param name="fp_instruction_window_size" value="16"/>
+			<param name="ROB_size" value="80"/>
+			<param name="archi_Regs_IRF_size" value="32"/>
+			<param name="archi_Regs_FRF_size" value="32"/>
+			<param name="phy_Regs_IRF_size" value="32"/>
+			<param name="phy_Regs_FRF_size" value="32"/>
+			<param name="rename_scheme" value="0"/>
+			<param name="register_windows_size" value="0"/>
+			<param name="LSU_order" value="inorder"/>
+			<param name="store_buffer_size" value="64"/>
+			<param name="load_buffer_size" value="0"/>
+			<param name="memory_ports" value="1"/>
+			<param name="RAS_size" value="32"/>
+			<component id="system.core3.predictor" name="PBT">
+				<param name="local_predictor_size" value="10,3"/>
+				<param name="local_predictor_entries" value="1024"/>
+				<param name="global_predictor_entries" value="4096"/>
+				<param name="global_predictor_bits" value="2"/>
+				<param name="chooser_predictor_entries" value="4096"/>
+				<param name="chooser_predictor_bits" value="2"/>
+			</component>
+			<component id="system.core3.itlb" name="itlb">
+				<param name="number_entries" value="48"/>
+			</component>
+			<component id="system.core3.dtlb" name="dtlb">
+				<param name="number_entries" value="64"/>
+			</component>
+			<component id="system.core3.BTB" name="BTB">
+				<param name="BTB_config" value="6144,4,2,1,1,3"/>
+				<param name="read_accesses" value="0"/>
+				<param name="write_accesses" value="0"/>
+			</component>
+		</component>
+		<component id="system.L1Directory0" name="L1Directory0">
+			<param name="Directory_type" value="1"/>
+			<param name="Dir_config" value="32768,16,8,1,1,20"/>
+			<param name="buffer_sizes" value="8,8,8,8"/>
+			<param name="clockrate" value="100"/>
+			<param name="ports" value="1,1,1"/>
+			<param name="device_type" value="0"/>
+		</component>
+		<component id="system.L20" name="L20">
+			<param name="L2_config" value="2097152,64,8,1,1,20"/>
+			<param name="buffer_sizes" value="20,20,20,20"/>
+			<param name="clockrate" value="100"/>
+			<param name="ports" value="1,1,1"/>
+			<param name="device_type" value="0"/>
+		</component>
+		<component id="system.NoC0" name="noc0">
+			<param name="clockrate" value="1000"/>
+			<param name="type" value="0"/>
+			<param name="horizontal_nodes" value="1"/>
+			<param name="vertical_nodes" value="1"/>
+			<param name="has_global_link" value="1"/>
+			<param name="link_throughput" value="1"/>
+			<param name="link_latency" value="1"/>
+			<param name="input_ports" value="9"/>
+			<param name="output_ports" value="9"/>
+			<param name="virtual_channel_per_port" value="2"/>
+			<param name="input_buffer_entries_per_vc" value="128"/>
+			<param name="flit_bits" value="40"/>
+			<param name="chip_coverage" value="1"/>
+			<param name="link_routing_over_percentage" value="0.5"/>
+		</component>
+		<component id="system.mem" name="mem">
+			<param name="mem_tech_node" value="32"/>
+			<param name="device_clock" value="200"/>
+			<param name="peak_transfer_rate" value="6400"/>
+			<param name="internal_prefetch_of_DRAM_chip" value="4"/>
+			<param name="capacity_per_channel" value="4096"/>
+			<param name="number_ranks" value="2"/>
+			<param name="num_banks_of_DRAM_chip" value="8"/>
+			<param name="Block_width_of_DRAM_chip" value="64"/>
+			<param name="output_width_of_DRAM_chip" value="8"/>
+			<param name="page_size_of_DRAM_chip" value="8"/>
+			<param name="burstlength_of_DRAM_chip" value="8"/>
+		</component>
+		<component id="system.mc" name="mc">
+			<param name="mc_clock" value="800"/>
+			<param name="peak_transfer_rate" value="1600"/>
+			<param name="llc_line_length" value="16"/>
+			<param name="number_mcs" value="1"/>
+			<param name="memory_channels_per_mc" value="2"/>
+			<param name="number_ranks" value="2"/>
+			<param name="req_window_size_per_channel" value="32"/>
+			<param name="IO_buffer_size_per_channel" value="32"/>
+			<param name="databus_width" value="32"/>
+			<param name="addressbus_width" value="32"/>
+		</component>
+		<component id="system.niu" name="niu">
+			<param name="type" value="1"/>
+			<param name="clockrate" value="15"/>
+			<param name="number_units" value="0"/>
+		</component>
+		<component id="system.pcie" name="pcie">
+			<param name="type" value="1"/>
+			<param name="withPHY" value="1"/>
+			<param name="clockrate" value="350"/>
+			<param name="number_units" value="0"/>
+			<param name="num_channels" value="2"/>
+		</component>
+		<component id="system.flashc" name="flashc">
+			<param name="number_flashcs" value="0"/>
+			<param name="type" value="1"/>
+			<param name="withPHY" value="1"/>
+			<param name="peak_transfer_rate" value="200"/>
+		</component>
+	</component>
+</component>
