@@ -22,3 +22,16 @@ $make
 You can read more about the way the Makefile system was built for this project here:
 http://www.openismus.com/documents/linux/automake/automake.shtml
 
+
+How to run this project:
+
+This McPat project was modified to allow running lots of statistics dumps in one call.
+First the McPat will configure the system components and parameters, and then it will expect in the stdin stream the xml-input-stats file.
+This way it is possible to have it integrated with other tools, like the gem5 performance tool.
+
+1. Command line to run it separately.
+
+$./mcpat -infile <xml-config> -print_level <level of output details 0-5> < <xml-input-stats>
+
+xml-config: this file can have only the structure of the system (components plus parameters).
+xml-input-stats: this is the file where the stats values will be.
