@@ -6,7 +6,7 @@ How to build this project:
 
 $touch NEWS README AUTHORS ChangeLog
 
-2. Run "aclocal", "autoconf", "autoheader" and "automake" in the right order to create config.h.in, Makefile.in, configure and a numer of axiliary files:
+2. The following command (below) run "aclocal", "autoconf", "autoheader" and "automake" in the right order to create config.h.in, Makefile.in, configure and a number of axiliary files:
 
 $autoreconf --force --install
 
@@ -23,7 +23,7 @@ You can read more about the way the Makefile system was built for this project h
 http://www.openismus.com/documents/linux/automake/automake.shtml
 
 
-How to run this project:
+How to run McPat:
 
 This McPat project was modified to allow running lots of statistics dumps in one call.
 First the McPat will configure the system components and parameters, and then it will expect in the stdin stream the xml-input-stats file.
