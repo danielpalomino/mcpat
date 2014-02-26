@@ -1460,7 +1460,7 @@ void ParseXML::parse(XMLNode &xMainNode)
 			{ //get all items of param in system.mem
 				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"mc_clock")==0) {sys.mc.mc_clock=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
 				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"vdd")==0) {sys.mc.vdd=atof(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
-				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"block_size")==0) {sys.mc.llc_line_length=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
+				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"llc_line_length")==0) {sys.mc.llc_line_length=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
 				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"number_mcs")==0) {sys.mc.number_mcs=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
 				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"memory_channels_per_mc")==0) {sys.mc.memory_channels_per_mc=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
 				if (strcmp(xNode3.getChildNode("param",k).getAttribute("name"),"req_window_size_per_channel")==0) {sys.mc.req_window_size_per_channel=atoi(xNode3.getChildNode("param",k).getAttribute("value"));continue;}
