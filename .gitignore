@@ -1,6 +1,9 @@
 # CodeBlocks project file
 *.cbp
 
+#Netbeans project files
+nbproject/
+
 # Binary file
 mcpat
 
