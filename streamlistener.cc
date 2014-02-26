@@ -24,15 +24,17 @@ const std::string StreamListener::endtag("</component>");
 
 void StreamListener::energyCalculationLoop()
 {
-    while (readXmlRequest()) {
+    std::auto_ptr<ParseXML> xml(new ParseXML);
+    while (readXmlRequest()) {        
         Timer::global().start();
         // Processor::computeEnergy stores a reference to the xml object,
         // therefore, it must stay alive until both computeEnergy and
         // displayEnergy are called.
-        std::auto_ptr<ParseXML> xml(new ParseXML);
+        
         xml->parse(filebuf);
         processRequest(xml.get());
         Timer::global().round("request");
+        xml.reset(new ParseXML);
     }
 }
 
@@ -48,7 +50,7 @@ void StreamListener::processRequest(ParseXML *xml)
     // McPAT's state.
 
     pid_t child_pid = fork();
-    if (0 == child_pid) {
+    if (0 == child_pid) {        
         computeEnergy(xml);
         displayEnergy();
         exit(0);
