@@ -1,5 +1,6 @@
 AC_INIT([mcpat], [0.8_r274], [])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_PROG_AR
 
 AC_SUBST([NTHREADS], [4])
 AC_ARG_WITH(
